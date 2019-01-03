@@ -1,0 +1,29 @@
+<section>
+  <div class="py-3 bg-secondary my-5">
+    <div class="container">
+      <div class="row">
+        <div class="ml-auto text-center text-lg-left col-lg-7">
+          <h1>{{translations.DASHBOAD_CHECK_WEATHER}}</h1>
+          <p class="mb-0">{{translations.DASHBOAD_CHECK_WEATHER_DESC}}</p>
+        </div>
+        <div class="justify-content-center align-items-center col-lg-5 d-flex">
+          <form class="form-inline mb-0 w-100">
+            <div class="input-group input-group-lg w-100">
+              <input type="text" class="form-control w-auto" placeholder="{{translations.DASHBOARD_TYPE_PLACE_NAME}}">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="button">{{translations.DASHBOARD_LOCALIZE}}</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <agm-map [latitude]="lat" [longitude]="lng">
+        <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+      </agm-map>
+    </div>
+  </div>
+</section>
