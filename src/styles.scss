@@ -1,4 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'assets/styles/general_variables';
 @import '~bootstrap/scss/bootstrap';
 @import '~bootstrap/scss/bootstrap-grid';
 @import '~bootstrap/scss/bootstrap-reboot';
+
+section {
+  margin-top: 72px;
+}
+
+agm-map {
+  height: 600px;
+  width: 100%;
+}
