@@ -6,7 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ContactComponent } from './contact/contact.component';
 import { AboutComponent } from './about/about.component';
 import {RouterModule, Routes} from '@angular/router';
-import {AgmCoreModule} from '@agm/core';
+import {FormsModule} from '@angular/forms';
 
 const appRoutes: Routes = [
   { path: '', component: DashboardComponent },
@@ -24,12 +24,10 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     RouterModule.forRoot(
       appRoutes
-    ),
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCAYMFDnaJ1uoPxeENwACjioCIFOdepaxw'
-    })
+    )
   ],
   providers: [],
   bootstrap: [AppComponent]

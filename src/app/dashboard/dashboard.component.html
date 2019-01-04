@@ -7,11 +7,11 @@
           <p class="mb-0">{{translations.DASHBOAD_CHECK_WEATHER_DESC}}</p>
         </div>
         <div class="justify-content-center align-items-center col-lg-5 d-flex">
-          <form class="form-inline mb-0 w-100">
+          <form class="form-inline mb-0 w-100" id="place-form" #f="ngForm" (ngSubmit)="onSubmit(f)">
             <div class="input-group input-group-lg w-100">
-              <input type="text" class="form-control w-auto" placeholder="{{translations.DASHBOARD_TYPE_PLACE_NAME}}">
+              <input type="text" id="place-name" name="placeName" required="required" minlength="1" maxlength="255" [(ngModel)]="placeName" class="form-control w-auto" placeholder="{{translations.DASHBOARD_TYPE_PLACE_NAME}}">
               <div class="input-group-append">
-                <button class="btn btn-primary" type="button">{{translations.DASHBOARD_LOCALIZE}}</button>
+                <button class="btn btn-primary" type="submit">{{translations.DASHBOARD_LOCALIZE}}</button>
               </div>
             </div>
           </form>
@@ -21,9 +21,9 @@
   </div>
   <div class="container">
     <div class="row">
-      <agm-map [latitude]="lat" [longitude]="lng">
-        <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-      </agm-map>
+      <!-- Google Map -->
+      <div #gmap class="gmap"></div>
+      <!-- Google Map -->
     </div>
   </div>
 </section>
