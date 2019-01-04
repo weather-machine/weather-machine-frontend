@@ -1,20 +1,25 @@
 <header class="navbar navbar-expand-md navbar-light bg-primary p-0 fixed-top">
-  <ul class="navbar-nav mx-auto">
-    <li class="nav-item text-center my-3">
-      <a class="nav-link" routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-        <span>{{translations.NAV_DASHBOARD}}</span>
-      </a>
-    </li>
-    <li class="nav-item text-center my-3">
-      <a class="nav-link" routerLink="info" routerLinkActive="active">
-        <span>{{translations.NAV_INFO}}</span>
-      </a>
-    </li>
-    <li class="nav-item text-center my-3">
-      <a class="nav-link" routerLink="contact" routerLinkActive="active">
-        <span>{{translations.NAV_CONTACT}}</span>
-      </a>
-    </li>
-  </ul>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarContent">
+    <ul class="navbar-nav mx-auto">
+      <li class="nav-item text-center my-3">
+        <a class="nav-link" routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <span>{{translations.NAV_DASHBOARD}}</span>
+        </a>
+      </li>
+      <li class="nav-item text-center my-3">
+        <a class="nav-link" routerLink="info" routerLinkActive="active">
+          <span>{{translations.NAV_INFO}}</span>
+        </a>
+      </li>
+      <li class="nav-item text-center my-3">
+        <a class="nav-link" routerLink="contact" routerLinkActive="active">
+          <span>{{translations.NAV_CONTACT}}</span>
+        </a>
+      </li>
+    </ul>
+  </div>
 </header>
 <router-outlet></router-outlet>
