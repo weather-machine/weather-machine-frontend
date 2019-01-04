@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Translations} from '../translations.enum';
 import {NgForm} from '@angular/forms';
 import {GeocoderService} from '../geocoder.service';
+import { } from '@types/googlemaps';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,10 +12,11 @@ import {GeocoderService} from '../geocoder.service';
 export class DashboardComponent implements OnInit {
 
   translations = Translations;
-
   placeName: string;
   placeLat: number;
   placeLng: number;
+  @ViewChild('gmap') gmapElement: any;
+  map: google.maps.Map;
 
   constructor(private geocoder: GeocoderService) {
     /* Hardcoded Wroclaw position */
@@ -22,13 +24,20 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    const mapProperties = {
+      center: new google.maps.LatLng(this.placeLat, this.placeLng),
+      zoom: 15,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProperties);
   }
 
   onSubmit(f: NgForm) {
     if (this.isPlaceNameValid()) {
-      console.log(this.placeName);
-      const geocodedAddress = this.geocoder.geocodeAddress(this.placeName);
-      this.setPlaceCoordinates(geocodedAddress.lat, geocodedAddress.lng);
+      this.geocoder.geocodeAddress(this.placeName).subscribe(
+        data => this.changeLocalization(data),
+        error => console.log(error)
+      );
     }
   }
 
@@ -41,4 +50,12 @@ export class DashboardComponent implements OnInit {
     this.placeLng = placeLng;
   }
 
+  changeLocalization(geocodedAddress: any) {
+    this.setPlaceCoordinates(geocodedAddress.lat, geocodedAddress.lng);
+    this.centerMap();
+  }
+
+  centerMap(placeLat: number = this.placeLat, placeLng: number = this.placeLng) {
+    this.map.setCenter(new google.maps.LatLng(placeLat, placeLng));
+  }
 }
