@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {Translations} from '../translations.enum';
 import {NgForm} from '@angular/forms';
 import {GeocoderService} from '../geocoder.service';
-import { } from '@types/googlemaps';
+// import {} from '@types/googlemaps';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,7 +26,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     const mapProperties = {
       center: new google.maps.LatLng(this.placeLat, this.placeLng),
-      zoom: 15,
+      zoom: 10,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProperties);
