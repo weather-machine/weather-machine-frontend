@@ -1,29 +1,532 @@
 <section>
-  <div class="py-3 bg-secondary my-5">
+  <div class="search-area text-white">
     <div class="container">
       <div class="row">
-        <div class="ml-auto text-center text-lg-left col-lg-7">
-          <h1>{{translations.DASHBOAD_CHECK_WEATHER}}</h1>
-          <p class="mb-0">{{translations.DASHBOAD_CHECK_WEATHER_DESC}}</p>
+        <div class="ml-auto text-center text-lg-left col-lg-8">
+          <h1>{{translations.DASHBOARD_CHECK_WEATHER}}</h1>
+          <p class="mb-0">{{translations.DASHBOARD_CHECK_WEATHER_DESC}}</p>
         </div>
-        <div class="justify-content-center align-items-center col-lg-5 d-flex">
+        <div class="justify-content-flex-end align-items-center col-lg-4 d-flex mt-5 mt-lg-0 flex-column">
           <form class="form-inline mb-0 w-100" id="place-form" #f="ngForm" (ngSubmit)="onSubmit(f)">
             <div class="input-group input-group-lg w-100">
-              <input type="text" id="place-name" name="placeName" required="required" minlength="1" maxlength="255" [(ngModel)]="placeName" class="form-control w-auto" placeholder="{{translations.DASHBOARD_TYPE_PLACE_NAME}}">
+              <input type="text" id="place-name" name="placeName" required="required" minlength="1" maxlength="255"
+                [(ngModel)]="placeName" class="form-control" placeholder="{{translations.DASHBOARD_TYPE_PLACE_NAME}}">
               <div class="input-group-append">
                 <button class="btn btn-primary" type="submit">{{translations.DASHBOARD_LOCALIZE}}</button>
               </div>
             </div>
           </form>
+          <small class="mt-2"><a href="#wm-map">Lub wybierz punkt na mapie</a></small>
         </div>
       </div>
     </div>
   </div>
+</section>
+<section id="wm-weather">
   <div class="container">
     <div class="row">
-      <!-- Google Map -->
+      <div class="col text-center">
+        <h1 class="display-3 mb-5">{{translations.DASHBOARD_WEATHER_FOR}} <strong contenteditable="true">{{placeName || 'Ciebie'}}</strong></h1>
+      </div>
+    </div>
+    <div class="row shadow">
+      <div class="col-md-12">
+        <div class="row text-center">
+          <div class="col-lg-6 forecast forecast--today">
+            <div class="forecast__inner">
+              <h4>Dzisiaj</h4>
+              <div class="row">
+                <div class="col-12">
+                  <div class="forecast__icon">
+                    <div class="icon">
+                      <div class="cloud"></div>
+                      <div class="rain"></div>
+                      <div class="snow">
+                        <div class="flake"></div>
+                        <div class="flake"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <div class="forecast__temperature">
+                    <h3>-12°C</h3>
+                  </div>
+                  <div class="forecast__description">
+                    <p>Deszcz ze śniegiem</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row d-none d-lg-flex">
+                <div class="offset-2 col-3">
+                  <svg viewBox="0 0 36 36" class="circular-chart circular-chart--direction">
+                    <path class="circle circle--grey" stroke-dasharray="7.5,5" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <path class="circle circle--direction" stroke-dasharray="7.5,92,5" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <text class="text" x="50%" y="45%" text-anchor="middle" alignment-baseline="central">7</text>
+                    <text class="text" x="50%" y="65%" text-anchor="middle" alignment-baseline="central">km/h</text>
+                  </svg>
+                  <h6>Kierunek i siła wiatru</h6>
+                </div>
+                <div class="offset-2 col-3">
+                  <svg viewBox="0 0 36 36" class="circular-chart">
+                    <path class="circle circle--grey" stroke-dasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <path class="circle" stroke-dasharray="90, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <text class="text" x="50%" y="50%" text-anchor="middle" alignment-baseline="central">90%</text>
+                  </svg>
+                  <h6>Zachmurzenie nieba</h6>
+                </div>
+                <div class="offset-2 col-3">
+                  <svg viewBox="0 0 36 36" class="circular-chart circular-chart--pressure">
+                    <path class="circle circle--grey" stroke-dasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <path class="circle circle--pressure" stroke-dasharray="75, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <text class="text" x="50%" y="45%" text-anchor="middle" alignment-baseline="central">1020</text>
+                    <text class="text" x="50%" y="65%" text-anchor="middle" alignment-baseline="central">hPa</text>
+                  </svg>
+                  <h6>Ciśnienie atmosferyczne</h6>
+                </div>
+                <div class="offset-2 col-3">
+                  <svg viewBox="0 0 36 36" class="circular-chart">
+                    <path class="circle circle--grey" stroke-dasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <path class="circle" stroke-dasharray="81, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <text class="text" x="50%" y="50%" text-anchor="middle" alignment-baseline="central">81%</text>
+                  </svg>
+                  <h6>Wilgotność powietrza</h6>
+                </div>
+              </div>
+              <div class="row d-lg-none">
+                <div class="col-12">
+                  <div class="table-responsive forecast__table">
+                    <table class="table table-sm table-borderless">
+                      <tbody class="small">
+                        <tr>
+                          <td>Wiatr</td>
+                          <td>7km/h <i class="material-icons">arrow_right_alt</i></td>
+                        </tr>
+                        <tr>
+                          <td>Chmury</td>
+                          <td>90% nieba</td>
+                        </tr>
+                        <tr>
+                          <td>Ciśnienie</td>
+                          <td>1020 hPa</td>
+                        </tr>
+                        <tr>
+                          <td>Wilgotność</td>
+                          <td>81%</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6 col-lg-3 forecast forecast--night">
+            <div class="forecast__inner">
+              <h4>W nocy</h4>
+              <div class="row">
+                <div class="col-12">
+                  <div class="forecast__icon">
+                    <div class="icon">
+                      <div class="cloud"></div>
+                      <div class="moon"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <div class="forecast__temperature">
+                    <h3>-12°C</h3>
+                  </div>
+                  <div class="forecast__description">
+                    <p>Pochmurno</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row d-none d-lg-flex">
+                <div class="col-6">
+                  <svg viewBox="0 0 36 36" class="circular-chart circular-chart--direction">
+                    <path class="circle circle--grey" stroke-dasharray="7.5,5" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <path class="circle circle--direction" stroke-dasharray="7.5,92,5" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <text class="text" x="50%" y="45%" text-anchor="middle" alignment-baseline="central">7</text>
+                    <text class="text" x="50%" y="65%" text-anchor="middle" alignment-baseline="central">km/h</text>
+                  </svg>
+                  <h6>Kierunek i siła wiatru</h6>
+                </div>
+                <div class="col-6">
+                  <svg viewBox="0 0 36 36" class="circular-chart">
+                    <path class="circle circle--grey" stroke-dasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <path class="circle" stroke-dasharray="90, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <text class="text" x="50%" y="50%" text-anchor="middle" alignment-baseline="central">90%</text>
+                  </svg>
+                  <h6>Zachmurzenie nieba</h6>
+                </div>
+                <div class="col-6">
+                  <svg viewBox="0 0 36 36" class="circular-chart circular-chart--pressure">
+                    <path class="circle circle--grey" stroke-dasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <path class="circle circle--pressure" stroke-dasharray="75, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <text class="text" x="50%" y="45%" text-anchor="middle" alignment-baseline="central">1020</text>
+                    <text class="text" x="50%" y="65%" text-anchor="middle" alignment-baseline="central">hPa</text>
+                  </svg>
+                  <h6>Ciśnienie atmosferyczne</h6>
+                </div>
+                <div class="col-6">
+                  <svg viewBox="0 0 36 36" class="circular-chart">
+                    <path class="circle circle--grey" stroke-dasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <path class="circle" stroke-dasharray="81, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <text class="text" x="50%" y="50%" text-anchor="middle" alignment-baseline="central">81%</text>
+                  </svg>
+                  <h6>Wilgotność powietrza</h6>
+                </div>
+              </div>
+              <div class="row d-lg-none">
+                <div class="col-12">
+                  <div class="table-responsive forecast__table">
+                    <table class="table table-sm table-borderless">
+                      <tbody class="small">
+                        <tr>
+                          <td>Wiatr</td>
+                          <td>7km/h <i class="material-icons">arrow_right_alt</i></td>
+                        </tr>
+                        <tr>
+                          <td>Chmury</td>
+                          <td>90% nieba</td>
+                        </tr>
+                        <tr>
+                          <td>Ciśnienie</td>
+                          <td>1020 hPa</td>
+                        </tr>
+                        <tr>
+                          <td>Wilgotność</td>
+                          <td>81%</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6 col-lg-3 forecast forecast--tomorrow">
+            <div class="forecast__inner">
+              <h4>Jutro</h4>
+              <div class="row">
+                <div class="col-12">
+                  <div class="forecast__icon">
+                    <div class="icon">
+                      <div class="cloud"></div>
+                      <div class="snow">
+                        <div class="flake"></div>
+                        <div class="flake"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <div class="forecast__temperature">
+                    <h3>-12°C</h3>
+                  </div>
+                  <div class="forecast__description">
+                    <p>Opady śniegu</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row d-none d-lg-flex">
+                <div class="col-6">
+                  <svg viewBox="0 0 36 36" class="circular-chart circular-chart--direction">
+                    <path class="circle circle--grey" stroke-dasharray="7.5,5" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <path class="circle circle--direction" stroke-dasharray="7.5,92,5" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <text class="text" x="50%" y="45%" text-anchor="middle" alignment-baseline="central">7</text>
+                    <text class="text" x="50%" y="65%" text-anchor="middle" alignment-baseline="central">km/h</text>
+                  </svg>
+                  <h6>Kierunek i siła wiatru</h6>
+                </div>
+                <div class="col-6">
+                  <svg viewBox="0 0 36 36" class="circular-chart">
+                    <path class="circle circle--grey" stroke-dasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <path class="circle" stroke-dasharray="90, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <text class="text" x="50%" y="50%" text-anchor="middle" alignment-baseline="central">90%</text>
+                  </svg>
+                  <h6>Zachmurzenie nieba</h6>
+                </div>
+                <div class="col-6">
+                  <svg viewBox="0 0 36 36" class="circular-chart circular-chart--pressure">
+                    <path class="circle circle--grey" stroke-dasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <path class="circle circle--pressure" stroke-dasharray="75, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <text class="text" x="50%" y="45%" text-anchor="middle" alignment-baseline="central">1020</text>
+                    <text class="text" x="50%" y="65%" text-anchor="middle" alignment-baseline="central">hPa</text>
+                  </svg>
+                  <h6>Ciśnienie atmosferyczne</h6>
+                </div>
+                <div class="col-6">
+                  <svg viewBox="0 0 36 36" class="circular-chart">
+                    <path class="circle circle--grey" stroke-dasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <path class="circle" stroke-dasharray="81, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <text class="text" x="50%" y="50%" text-anchor="middle" alignment-baseline="central">81%</text>
+                  </svg>
+                  <h6>Wilgotność powietrza</h6>
+                </div>
+              </div>
+              <div class="row d-lg-none">
+                <div class="col-12">
+                  <div class="table-responsive forecast__table">
+                    <table class="table table-sm table-borderless">
+                      <tbody class="small">
+                        <tr>
+                          <td>Wiatr</td>
+                          <td>7km/h <i class="material-icons">arrow_right_alt</i></td>
+                        </tr>
+                        <tr>
+                          <td>Chmury</td>
+                          <td>90% nieba</td>
+                        </tr>
+                        <tr>
+                          <td>Ciśnienie</td>
+                          <td>1020 hPa</td>
+                        </tr>
+                        <tr>
+                          <td>Wilgotność</td>
+                          <td>81%</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-5 text-center justify-content-center">
+      <div class="col-12 col-lg-auto">
+        <a class="btn btn-primary" href="#wm-hourly">Prognoza godzinowa</a>
+      </div>
+      <div class="col-12 col-lg-auto mt-2 mt-lg-0 ml-lg-2">
+        <a class="btn btn-secondary" href="#wm-daily">Prognoza dzienna</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="wm-map">
+  <div class="row no-gutters">
+    <div class="col-12">
       <div #gmap class="gmap"></div>
-      <!-- Google Map -->
+    </div>
+  </div>
+</section>
+
+<section id="wm-hourly">
+  <div class="container">
+    <div class="row">
+      <div class="col text-center">
+        <h2 class="display-4 mb-5">Pogoda dla <strong contenteditable="true">{{placeName || 'Ciebie'}}</strong> na najbliższe godziny</h2>
+      </div>
+    </div>
+    <div class="row shadow">
+      <div class="col-md-12">
+        <div class="row text-center">
+          <div class="col-6 col-sm-4 col-lg-2 forecast forecast--hourly">
+            <div class="forecast__inner">
+              <div class="row align-items-center">
+                <div class="col-12">
+                  <h4>23:00</h4>
+                </div>
+                <div class="col-12">
+                  <div class="forecast__icon">
+                    <div class="icon">
+                      <div class="cloud"></div>
+                      <div class="snow">
+                        <div class="flake"></div>
+                        <div class="flake"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="forecast__temperature">
+                    <h3>-12°C</h3>
+                  </div>
+                  <div class="forecast__description">
+                    <p>Opady śniegu</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-sm-4 col-lg-2 forecast forecast--hourly forecast--new-day">
+            <div class="forecast__inner">
+              <div class="row align-items-center">
+                <div class="col-12">
+                  <h4>00:00</h4>
+                </div>
+                <div class="col-12">
+                  <div class="forecast__icon">
+                    <div class="icon">
+                      <div class="cloud"></div>
+                      <div class="snow">
+                        <div class="flake"></div>
+                        <div class="flake"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="forecast__temperature">
+                    <h3>-12°C</h3>
+                  </div>
+                  <div class="forecast__description">
+                    <p>Opady śniegu</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-sm-4 col-lg-2 forecast forecast--daily">
+            <div class="forecast__inner">
+              <div class="row align-items-center">
+                <div class="col-12">
+                  <h4>01:00</h4>
+                </div>
+                <div class="col-12">
+                  <div class="forecast__icon">
+                    <div class="icon">
+                      <div class="cloud"></div>
+                      <div class="snow">
+                        <div class="flake"></div>
+                        <div class="flake"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="forecast__temperature">
+                    <h3>-12°C</h3>
+                  </div>
+                  <div class="forecast__description">
+                    <p>Opady śniegu</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-12 text-center">
+      <a class="btn btn-outline-primary" href="#!">{{translations.SEE_MORE}}</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="separator"></div>
+</section>
+
+<section id="wm-daily">
+  <div class="container">
+    <div class="row">
+      <div class="col text-center">
+        <h2 class="display-4 mb-5">Pogoda dla <strong contenteditable="true">{{placeName || 'Ciebie'}}</strong> na najbliższe dni</h2>
+      </div>
+    </div>
+    <div class="row shadow">
+      <div class="col-md-12">
+        <div class="row text-center">
+          <div class="col-6 col-sm-4 col-lg-2 forecast forecast--daily">
+            <div class="forecast__inner">
+              <div class="row align-items-center">
+                <div class="col-12">
+                  <h4>12 gru</h4>
+                </div>
+                <div class="col-12">
+                  <div class="forecast__icon">
+                    <div class="icon">
+                      <div class="cloud"></div>
+                      <div class="snow">
+                        <div class="flake"></div>
+                        <div class="flake"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="forecast__temperature">
+                    <h3>-12°C</h3>
+                  </div>
+                  <div class="forecast__description">
+                    <p>Opady śniegu</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-sm-4 col-lg-2 forecast forecast--daily">
+            <div class="forecast__inner">
+              <div class="row align-items-center">
+                <div class="col-12">
+                  <h4>13 gru</h4>
+                </div>
+                <div class="col-12">
+                  <div class="forecast__icon">
+                    <div class="icon">
+                      <div class="cloud"></div>
+                      <div class="snow">
+                        <div class="flake"></div>
+                        <div class="flake"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="forecast__temperature">
+                    <h3>-12°C</h3>
+                  </div>
+                  <div class="forecast__description">
+                    <p>Opady śniegu</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-sm-4 col-lg-2 forecast forecast--daily">
+            <div class="forecast__inner">
+              <div class="row align-items-center">
+                <div class="col-12">
+                  <h4>14 gru</h4>
+                </div>
+                <div class="col-12">
+                  <div class="forecast__icon">
+                    <div class="icon">
+                      <div class="cloud"></div>
+                      <div class="snow">
+                        <div class="flake"></div>
+                        <div class="flake"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="forecast__temperature">
+                    <h3>-12°C</h3>
+                  </div>
+                  <div class="forecast__description">
+                    <p>Opady śniegu</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>

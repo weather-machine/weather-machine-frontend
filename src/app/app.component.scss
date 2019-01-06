@@ -1,0 +1,21 @@
+@import '../assets/styles/general_variables.scss';
+
+header, footer {
+    min-height: 100px;
+    background: $gradient;
+    background-size: 400% 400%;
+    animation: animate-background 60s ease infinite;
+}
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+@keyframes animate-background { 
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}

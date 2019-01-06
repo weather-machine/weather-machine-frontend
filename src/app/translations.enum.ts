@@ -3,8 +3,13 @@ export enum Translations {
   NAV_INFO = 'O nas',
   NAV_CONTACT = 'Kontakt',
 
-  DASHBOAD_CHECK_WEATHER = 'Sprawdź pogodę',
-  DASHBOAD_CHECK_WEATHER_DESC = 'Wyszukaj prognozy na najbliższe dni dzięki naszej aplikacji!',
-  DASHBOARD_TYPE_PLACE_NAME = 'Wpisz swoją miejscowość',
-  DASHBOARD_LOCALIZE = 'Lokalizuj'
+  DASHBOARD_CHECK_WEATHER = 'Sprawdź pogodę',
+  DASHBOARD_CHECK_WEATHER_DESC = 'Wyszukaj prognozy na najbliższe dni dzięki naszej aplikacji!',
+  DASHBOARD_TYPE_PLACE_NAME = 'Nazwa miejscowości',
+  DASHBOARD_LOCALIZE = 'Sprawdź',
+  DASHBOARD_WEATHER_FOR = 'Pogoda dla',
+
+  SEE_MORE = 'Pokaż więcej',
+
+  FOOTER_COPYRIGHT = '© WeatherMachine. All rights reserved'
 }

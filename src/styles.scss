@@ -3,11 +3,79 @@
 @import '~bootstrap/scss/bootstrap-grid';
 @import '~bootstrap/scss/bootstrap-reboot';
 
+@import 'assets/styles/weather-icons';
+
+body {
+  overflow-x: hidden;
+}
 section {
-  margin-top: 72px;
+  padding-top: 100px;
+  &:first-of-type {
+    padding-top: 100px;
+  }
+  &:last-of-type {
+    padding-bottom: 100px;
+  }
 }
 
 .gmap {
-  height: 600px;
+  height: 100%;
   width: 100%;
+}
+
+.shadow {
+  box-shadow: 0 0 30px rgba(0,0,0,.15)
+}
+
+.separator {
+    width: 100%;
+    height: 1rem;
+    background: #eee;
+}
+
+.circular-chart {
+  display: block;
+  margin: 10px auto;
+  max-width: 100%;
+  // max-height: 250px;
+  .circle {
+    transform-origin: center;
+    stroke: $primary;
+    fill: none;
+    stroke-width: 2.8;
+    stroke-linecap: round;
+    animation: progress 1s ease-out forwards;
+    &--grey {
+      stroke: rgba(black, 0.1);
+    }
+  }
+  .text {
+    font-size: 50%;
+    & + .text {
+      font-size: 25%;
+    }
+  }
+
+  &--direction {
+    .circle {
+      transform: rotate(-12.5deg);
+      &--direction {
+        transform: rotate(calc(-12.5deg + 45deg)); // -12.5deg + direction
+      }
+    }
+    
+  }
+
+  &--pressure {
+    .circle--pressure {
+      transform-origin: center;
+      transform: rotate(45deg); // 75/100 = 45/360/2
+    }
+  }
+}
+
+@keyframes progress {
+  0% {
+    stroke-dasharray: 0 100;
+  }
 }
