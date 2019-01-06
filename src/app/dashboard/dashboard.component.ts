@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {Translations} from '../translations.enum';
 import {NgForm} from '@angular/forms';
 import {GeocoderService} from '../geocoder.service';
+import {RestService} from '../rest.service';
 // import {} from '@types/googlemaps';
 
 @Component({
@@ -19,7 +20,7 @@ export class DashboardComponent implements OnInit {
   map: google.maps.Map;
   marker: google.maps.Marker;
 
-  constructor(private geocoder: GeocoderService) {
+  constructor(private geocoder: GeocoderService, private restService: RestService) {
     /* Hardcoded Wroclaw position */
     this.setPlaceCoordinates(51.1, 17.03333);
   }
@@ -32,6 +33,9 @@ export class DashboardComponent implements OnInit {
     };
     this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProperties);
     this.initializeMapsClickWatcher();
+
+    // it should be moved
+    this.getForecastForPlace();
   }
 
   onSubmit(f: NgForm) {
@@ -113,5 +117,12 @@ export class DashboardComponent implements OnInit {
         lng: event.latLng.lng()
       }, false, false);
     });
+  }
+
+  getForecastForPlace() {
+    this.restService.getForecastForPlace().subscribe(
+      data => console.log(data),
+      error => console.log(error)
+    );
   }
 }
