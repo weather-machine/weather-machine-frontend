@@ -60,7 +60,7 @@ section {
     .circle {
       transform: rotate(-12.5deg);
       &--direction {
-        transform: rotate(calc(-12.5deg + 45deg)); // -12.5deg + kierunek
+        transform: rotate(calc(-12.5deg + 45deg)); // -12.5deg + direction
       }
     }
     
@@ -73,10 +73,6 @@ section {
     }
   }
 }
-
-
-
-
 
 @keyframes progress {
   0% {
