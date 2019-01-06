@@ -11,5 +11,7 @@ export enum Translations {
 
   SEE_MORE = 'Pokaż więcej',
 
+  MAP_MARKER_TITLE = 'Wybrana lokalizacja',
+
   FOOTER_COPYRIGHT = '© WeatherMachine. All rights reserved'
 }

@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
   placeLng: number;
   @ViewChild('gmap') gmapElement: any;
   map: google.maps.Map;
+  marker: google.maps.Marker;
 
   constructor(private geocoder: GeocoderService) {
     /* Hardcoded Wroclaw position */
@@ -30,12 +31,13 @@ export class DashboardComponent implements OnInit {
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProperties);
+    this.initializeMapsClickWatcher();
   }
 
   onSubmit(f: NgForm) {
     if (this.isPlaceNameValid()) {
       this.geocoder.geocodeAddress(this.placeName).subscribe(
-        data => this.changeLocalization(data),
+        data => this.changeLocalization(data, true),
         error => console.log(error)
       );
     }
@@ -50,12 +52,66 @@ export class DashboardComponent implements OnInit {
     this.placeLng = placeLng;
   }
 
-  changeLocalization(geocodedAddress: any) {
+  changeLocalization(geocodedAddress: any, refreshMarker: boolean = false, centerMap: boolean = true, placeName: string = null) {
+    if (placeName) {
+      this.placeName = placeName;
+    }
     this.setPlaceCoordinates(geocodedAddress.lat, geocodedAddress.lng);
-    this.centerMap();
+    if (centerMap) {
+      this.centerMap();
+    }
+    if (refreshMarker || !this.marker) {
+      this.initializeMarker(geocodedAddress.lat, geocodedAddress.lng);
+    }
   }
 
   centerMap(placeLat: number = this.placeLat, placeLng: number = this.placeLng) {
     this.map.setCenter(new google.maps.LatLng(placeLat, placeLng));
+  }
+
+  initializeMarker(placeLat: number = this.placeLat, placeLng: number = this.placeLng) {
+    this.removeMarker();
+    this.marker = new google.maps.Marker({
+      position: new google.maps.LatLng(placeLat, placeLng),
+      map: this.map,
+      title: this.translations.MAP_MARKER_TITLE,
+      draggable: true,
+      animation: google.maps.Animation.DROP
+    });
+    this.initializeMarkerWatcher();
+  }
+
+  removeMarker(marker: google.maps.Marker = this.marker) {
+    if (marker) {
+      marker.setMap(null);
+    }
+  }
+
+  initializeMarkerWatcher(marker: google.maps.Marker = this.marker) {
+    const self = this;
+    google.maps.event.addListener(marker, 'dragend', function() {
+      const position = marker.getPosition();
+      self.geocoder.geocodeLatLng(position).subscribe(
+        data => self.changeLocalization({
+            lat: position.lat(),
+            lng: position.lng()
+          },
+          false,
+          false,
+          // @ts-ignore
+          data.formattedPlaceName),
+        error => console.log(error)
+      );
+    });
+  }
+
+  initializeMapsClickWatcher(map: google.maps.Map = this.map) {
+    const self = this;
+    google.maps.event.addListener(map, 'click', function(event) {
+      self.changeLocalization({
+        lat: event.latLng.lat(),
+        lng: event.latLng.lng()
+      }, false, false);
+    });
   }
 }
