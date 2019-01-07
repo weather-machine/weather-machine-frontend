@@ -9,6 +9,8 @@ import {RouterModule, Routes} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {RestService} from './rest.service';
+import { WeatherTileComponent } from './weather-tile/weather-tile.component';
+import { WeatherTileIconComponent } from './weather-tile-icon/weather-tile-icon.component';
 
 const appRoutes: Routes = [
   { path: '', component: DashboardComponent },
@@ -22,7 +24,9 @@ const appRoutes: Routes = [
     AppComponent,
     DashboardComponent,
     ContactComponent,
-    AboutComponent
+    AboutComponent,
+    WeatherTileComponent,
+    WeatherTileIconComponent
   ],
   imports: [
     BrowserModule,
