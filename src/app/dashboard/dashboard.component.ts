@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit {
   weatherIconType = WeatherIconType;
   weatherTileType = WeatherTileType;
   placeName: string;
+  countryName: string;
   placeLat: number;
   placeLng: number;
   @ViewChild('gmap') gmapElement: any;
@@ -37,9 +38,6 @@ export class DashboardComponent implements OnInit {
     };
     this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProperties);
     this.initializeMapsClickWatcher();
-
-    // it should be moved
-    // this.getForecastForPlace();
   }
 
   onSubmit(f: NgForm) {
@@ -60,10 +58,12 @@ export class DashboardComponent implements OnInit {
     this.placeLng = placeLng;
   }
 
-  changeLocalization(geocodedAddress: any, refreshMarker: boolean = false, centerMap: boolean = true, placeName: string = null) {
+  changeLocalization(geocodedAddress: any, refreshMarker: boolean = false,
+                     centerMap: boolean = true, placeName: string = null) {
     if (placeName) {
       this.placeName = placeName;
     }
+    this.countryName = geocodedAddress.country;
     this.setPlaceCoordinates(geocodedAddress.lat, geocodedAddress.lng);
     if (centerMap) {
       this.centerMap();
@@ -102,12 +102,14 @@ export class DashboardComponent implements OnInit {
       self.geocoder.geocodeLatLng(position).subscribe(
         data => self.changeLocalization({
             lat: position.lat(),
-            lng: position.lng()
+            lng: position.lng(),
+            // @ts-ignore
+            country: data.sourceCountry,
           },
           false,
           false,
           // @ts-ignore
-          data.formattedPlaceName),
+          data.sourcePlaceName),
         error => console.log(error)
       );
     });
@@ -120,20 +122,57 @@ export class DashboardComponent implements OnInit {
       self.geocoder.geocodeLatLng(position).subscribe(
         data => self.changeLocalization({
             lat: position.lat(),
-            lng: position.lng()
+            lng: position.lng(),
+            // @ts-ignore
+            country: data.sourceCountry
           },
           false,
           false,
           // @ts-ignore
-          data.formattedPlaceName),
+          data.sourcePlaceName),
         error => console.log(error)
       );
     });
   }
 
-  getForecastForPlace() {
-    this.restService.getForecastForPlace().subscribe(
-      data => console.log(data),
+  // normalize() is not supported by IE
+  getFormattedString(text: string, maxLength: number): string {
+    let result = '';
+
+    try {
+      result = text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[\u0141-\u0142]/g, 'l').slice(0, maxLength);
+    } catch (error) {}
+
+    return result;
+  }
+
+  getForecastForPlace(numberOfCurrentTry: number = 0, maxRetryNumber: number = 5) {
+    const place = {
+      Latitude: this.placeLat,
+      Longitude: this.placeLng,
+      Name: this.getFormattedString(this.placeName, 255),
+      Country: this.getFormattedString(this.countryName, 10)
+    };
+
+    this.restService.getForecastForPlace(place).subscribe(
+      data => {
+        // @ts-ignore
+        if (data.hasOwnProperty('status') && data.status === 'success'
+          && numberOfCurrentTry < maxRetryNumber) {
+          // waiting for forecasts
+          setTimeout( () => {
+            this.getForecastForPlace(++numberOfCurrentTry);
+          }, this.restService.pullingIntervalDelay);
+        // @ts-ignore
+        } else if (data.hasOwnProperty('status') && data.status === 'success'
+          && numberOfCurrentTry === maxRetryNumber) {
+          // to many tries
+          console.log('to many tries');
+        } else {
+          // forecasts are correct
+          console.log(data);
+        }
+      },
       error => console.log(error)
     );
   }
