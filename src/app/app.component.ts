@@ -7,6 +7,6 @@ import {Translations} from './translations.enum';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'wheather-machine-frontend';
+  title = 'weather-machine-frontend';
   translations = Translations;
 }

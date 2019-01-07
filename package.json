@@ -1,5 +1,5 @@
 {
-  "name": "wheather-machine-frontend",
+  "name": "weather-machine-frontend",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
