@@ -23,5 +23,18 @@ export enum Translations {
   TIME_HOURLY = 'Prognoza godzinowa',
   TIME_NEAREST_HOURLY = 'na najbliższe godziny',
 
+  WEATHER_TEMPERATURE_UNIT = '°C',
+  WEATHER_WIND_SPEED_UNIT = 'm/s',
+  WEATHER_PRESSURE_UNIT = 'hPa',
+  WEATHER_WIND_DIRECTION = 'Kierunek i siła wiatru',
+  WEATHER_CLOUD_COVER = 'Zachmurzenie nieba',
+  WEATHER_CLOUD_SHORT = 'Chmury',
+  WEATHER_CLOUD_SKY = 'nieba',
+  WEATHER_PRESSURE = 'Ciśnienie atmosferyczne',
+  WEATHER_PRESSURE_SHORT = 'Ciśnienie',
+  WEATHER_HUMIDITY = 'Wilgotność powietrza',
+  WEATHER_HUMIDITY_SHORT = 'Wilgotność',
+  WEATHER_WIND_SHORT = 'Wiatr',
+
   FOOTER_COPYRIGHT = '© WeatherMachine. All rights reserved'
 }
