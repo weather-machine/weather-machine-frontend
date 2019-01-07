@@ -1,0 +1,10 @@
+export enum WeatherIconType {
+  MOON,
+  CLOUD,
+  CLOUD_MOON,
+  CLOUD_SUN_RAIN,
+  CLOUD_LIGHTNING,
+  CLOUD_SNOW,
+  CLOUD_RAIN,
+  SUN
+}

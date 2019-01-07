@@ -3,6 +3,8 @@ import {Translations} from '../translations.enum';
 import {NgForm} from '@angular/forms';
 import {GeocoderService} from '../geocoder.service';
 import {RestService} from '../rest.service';
+import {WeatherIconType} from '../weather-icon-type.enum';
+import {WeatherTileType} from '../weather-tile-type.enum';
 // import {} from '@types/googlemaps';
 
 @Component({
@@ -13,6 +15,8 @@ import {RestService} from '../rest.service';
 export class DashboardComponent implements OnInit {
 
   translations = Translations;
+  weatherIconType = WeatherIconType;
+  weatherTileType = WeatherTileType;
   placeName: string;
   placeLat: number;
   placeLng: number;
@@ -35,7 +39,7 @@ export class DashboardComponent implements OnInit {
     this.initializeMapsClickWatcher();
 
     // it should be moved
-    this.getForecastForPlace();
+    // this.getForecastForPlace();
   }
 
   onSubmit(f: NgForm) {

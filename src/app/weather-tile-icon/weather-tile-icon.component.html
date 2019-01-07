@@ -1,0 +1,43 @@
+<div class="icon" *ngIf="iconType === weatherIconType.MOON">
+  <div class="moon">
+  </div>
+</div>
+<div class="icon" *ngIf="iconType === weatherIconType.CLOUD">
+  <div class="cloud"></div>
+  <div class="cloud"></div>
+</div>
+<div class="icon" *ngIf="iconType === weatherIconType.CLOUD_MOON">
+  <div class="cloud"></div>
+  <div class="moon">
+  </div>
+</div>
+<div class="icon sun-shower" *ngIf="iconType === weatherIconType.CLOUD_SUN_RAIN">
+  <div class="cloud"></div>
+  <div class="sun">
+    <div class="rays"></div>
+  </div>
+  <div class="rain"></div>
+</div>
+<div class="icon" *ngIf="iconType === weatherIconType.CLOUD_LIGHTNING">
+  <div class="cloud"></div>
+  <div class="lightning">
+    <div class="bolt"></div>
+    <div class="bolt"></div>
+  </div>
+</div>
+<div class="icon" *ngIf="iconType === weatherIconType.CLOUD_SNOW">
+  <div class="cloud"></div>
+  <div class="snow">
+    <div class="flake"></div>
+    <div class="flake"></div>
+  </div>
+</div>
+<div class="icon" *ngIf="iconType === weatherIconType.CLOUD_RAIN">
+  <div class="cloud"></div>
+  <div class="rain"></div>
+</div>
+<div class="icon" *ngIf="iconType === weatherIconType.SUN">
+  <div class="sun">
+    <div class="rays"></div>
+  </div>
+</div>
