@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {Translations} from './translations.enum';
+import {Translations} from './enums/translations.enum';
 
 @Component({
   selector: 'app-root',

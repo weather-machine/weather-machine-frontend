@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {WeatherIconType} from '../weather-icon-type.enum';
+import {WeatherIconType} from '../enums/weather-icon-type.enum';
 
 @Component({
   selector: 'app-weather-tile-icon',

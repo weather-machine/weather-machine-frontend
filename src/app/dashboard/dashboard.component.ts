@@ -1,10 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Translations} from '../translations.enum';
+import {Translations} from '../enums/translations.enum';
 import {NgForm} from '@angular/forms';
-import {GeocoderService} from '../geocoder.service';
-import {RestService} from '../rest.service';
-import {WeatherIconType} from '../weather-icon-type.enum';
-import {WeatherTileType} from '../weather-tile-type.enum';
+import {GeocoderService} from '../services/geocoder.service';
+import {RestService} from '../services/rest.service';
+import {WeatherIconType} from '../enums/weather-icon-type.enum';
+import {WeatherTileType} from '../enums/weather-tile-type.enum';
 // import {} from '@types/googlemaps';
 
 @Component({
