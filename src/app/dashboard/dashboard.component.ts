@@ -116,10 +116,18 @@ export class DashboardComponent implements OnInit {
   initializeMapsClickWatcher(map: google.maps.Map = this.map) {
     const self = this;
     google.maps.event.addListener(map, 'click', function(event) {
-      self.changeLocalization({
-        lat: event.latLng.lat(),
-        lng: event.latLng.lng()
-      }, false, false);
+      const position = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
+      self.geocoder.geocodeLatLng(position).subscribe(
+        data => self.changeLocalization({
+            lat: position.lat(),
+            lng: position.lng()
+          },
+          false,
+          false,
+          // @ts-ignore
+          data.formattedPlaceName),
+        error => console.log(error)
+      );
     });
   }
 
