@@ -13,12 +13,13 @@ export class RestService {
       'Content-Type':  'application/json'
     })
   };
+  public pullingIntervalDelay = 10000;
 
   constructor(private http: HttpClient) {
     this.REST_API_URL = environment.REST_API_URL;
   }
 
-  getForecastForPlace() {
-    return this.http.get(this.REST_API_URL + 'forecastForPlace', this.httpOptions);
+  getForecastForPlace(place: any) {
+    return this.http.post(this.REST_API_URL + 'forecastForPlace', place, this.httpOptions);
   }
 }

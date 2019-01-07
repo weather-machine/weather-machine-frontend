@@ -13,6 +13,7 @@
                 [(ngModel)]="placeName" class="form-control" placeholder="{{translations.DASHBOARD_TYPE_PLACE_NAME}}">
               <div class="input-group-append">
                 <button class="btn btn-primary" type="submit">{{translations.DASHBOARD_LOCALIZE}}</button>
+                <button class="btn btn-primary" type="button" (click)='getForecastForPlace()'>{{translations.DASHBOARD_LOCALIZE}}</button>
               </div>
             </div>
           </form>
