@@ -13,7 +13,6 @@
                 [(ngModel)]="placeName" class="form-control" placeholder="{{translations.DASHBOARD_TYPE_PLACE_NAME}}">
               <div class="input-group-append">
                 <button class="btn btn-primary" type="submit">{{translations.DASHBOARD_LOCALIZE}}</button>
-                <button class="btn btn-primary" type="button" (click)='getForecastForPlace()'>{{translations.DASHBOARD_LOCALIZE}}</button>
               </div>
             </div>
           </form>
@@ -23,8 +22,16 @@
     </div>
   </div>
 </section>
+<section id="wm-map">
+  <div class="row no-gutters">
+    <div class="col-12">
+      <div #gmap class="gmap"></div>
+    </div>
+  </div>
+</section>
 <section id="wm-weather">
-  <div class="container">
+  <ngx-loading [show]="loading"></ngx-loading>
+  <div class="container" *ngIf="weatherCurrent && weatherNight && weatherTomorrow">
     <div class="row">
       <div class="col text-center">
         <h1 class="display-3 mb-5">{{translations.DASHBOARD_WEATHER_FOR}} <strong>{{placeName || translations.DASHBOARD_WEATHER_FOR_YOU}}</strong></h1>
@@ -34,238 +41,13 @@
       <div class="col-md-12">
         <div class="row text-center">
           <div class="col-lg-6 forecast forecast--today">
-            <app-weather-tile [tileType]="weatherTileType.TODAY" [weatherTime]="translations.TIME_TODAY" [weatherIconType]="weatherIconType.SUN"></app-weather-tile>
+            <app-weather-tile [tileType]="weatherTileType.TODAY" [weatherTime]="translations.TIME_TODAY" [weatherIconType]="weatherCurrentIcon" [weather]="weatherCurrent"></app-weather-tile>
           </div>
           <div class="col-12 col-sm-6 col-lg-3 forecast forecast--night">
-            <app-weather-tile [tileType]="weatherTileType.NIGHT" [weatherTime]="translations.TIME_NIGHT" [weatherIconType]="weatherIconType.CLOUD_SUN_RAIN"></app-weather-tile>
+            <app-weather-tile [tileType]="weatherTileType.NIGHT" [weatherTime]="translations.TIME_NIGHT" [weatherIconType]="weatherNightIcon" [weather]="weatherNight"></app-weather-tile>
           </div>
           <div class="col-12 col-sm-6 col-lg-3 forecast forecast--tomorrow">
-            <app-weather-tile [tileType]="weatherTileType.TOMORROW" [weatherTime]="translations.TIME_TOMORROW" [weatherIconType]="weatherIconType.CLOUD_RAIN"></app-weather-tile>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row mt-5 text-center justify-content-center">
-      <div class="col-12 col-lg-auto">
-        <a class="btn btn-primary" href="#wm-hourly">{{translations.TIME_HOURLY}}</a>
-      </div>
-      <div class="col-12 col-lg-auto mt-2 mt-lg-0 ml-lg-2">
-        <a class="btn btn-secondary" href="#wm-daily">{{translations.TIME_DAILY}}</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="wm-map">
-  <div class="row no-gutters">
-    <div class="col-12">
-      <div #gmap class="gmap"></div>
-    </div>
-  </div>
-</section>
-
-<section id="wm-hourly">
-  <div class="container">
-    <div class="row">
-      <div class="col text-center">
-        <h2 class="display-4 mb-5">{{translations.DASHBOARD_WEATHER_FOR}} <strong>{{placeName || translations.DASHBOARD_WEATHER_FOR_YOU}}</strong> {{translations.TIME_NEAREST_HOURLY}}</h2>
-      </div>
-    </div>
-    <div class="row shadow">
-      <div class="col-md-12">
-        <div class="row text-center">
-          <div class="col-6 col-sm-4 col-lg-2 forecast forecast--hourly">
-            <div class="forecast__inner">
-              <div class="row align-items-center">
-                <div class="col-12">
-                  <h4>23:00</h4>
-                </div>
-                <div class="col-12">
-                  <div class="forecast__icon">
-                    <div class="icon">
-                      <div class="cloud"></div>
-                      <div class="snow">
-                        <div class="flake"></div>
-                        <div class="flake"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <div class="forecast__temperature">
-                    <h3>-12°C</h3>
-                  </div>
-                  <div class="forecast__description">
-                    <p>Opady śniegu</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-6 col-sm-4 col-lg-2 forecast forecast--hourly forecast--new-day">
-            <div class="forecast__inner">
-              <div class="row align-items-center">
-                <div class="col-12">
-                  <h4>00:00</h4>
-                </div>
-                <div class="col-12">
-                  <div class="forecast__icon">
-                    <div class="icon">
-                      <div class="cloud"></div>
-                      <div class="snow">
-                        <div class="flake"></div>
-                        <div class="flake"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <div class="forecast__temperature">
-                    <h3>-12°C</h3>
-                  </div>
-                  <div class="forecast__description">
-                    <p>Opady śniegu</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-6 col-sm-4 col-lg-2 forecast forecast--daily">
-            <div class="forecast__inner">
-              <div class="row align-items-center">
-                <div class="col-12">
-                  <h4>01:00</h4>
-                </div>
-                <div class="col-12">
-                  <div class="forecast__icon">
-                    <div class="icon">
-                      <div class="cloud"></div>
-                      <div class="snow">
-                        <div class="flake"></div>
-                        <div class="flake"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <div class="forecast__temperature">
-                    <h3>-12°C</h3>
-                  </div>
-                  <div class="forecast__description">
-                    <p>Opady śniegu</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row mt-5">
-    <div class="col-12 text-center">
-      <a class="btn btn-outline-primary" href="#!">{{translations.SEE_MORE}}</a>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="separator"></div>
-</section>
-
-<section id="wm-daily">
-  <div class="container">
-    <div class="row">
-      <div class="col text-center">
-        <h2 class="display-4 mb-5">{{translations.DASHBOARD_WEATHER_FOR}} <strong>{{placeName || translations.DASHBOARD_WEATHER_FOR_YOU}}</strong> {{translations.TIME_NEAREST_HOURLY}}</h2>
-      </div>
-    </div>
-    <div class="row shadow">
-      <div class="col-md-12">
-        <div class="row text-center">
-          <div class="col-6 col-sm-4 col-lg-2 forecast forecast--daily">
-            <div class="forecast__inner">
-              <div class="row align-items-center">
-                <div class="col-12">
-                  <h4>12 gru</h4>
-                </div>
-                <div class="col-12">
-                  <div class="forecast__icon">
-                    <div class="icon">
-                      <div class="cloud"></div>
-                      <div class="snow">
-                        <div class="flake"></div>
-                        <div class="flake"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <div class="forecast__temperature">
-                    <h3>-12°C</h3>
-                  </div>
-                  <div class="forecast__description">
-                    <p>Opady śniegu</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-6 col-sm-4 col-lg-2 forecast forecast--daily">
-            <div class="forecast__inner">
-              <div class="row align-items-center">
-                <div class="col-12">
-                  <h4>13 gru</h4>
-                </div>
-                <div class="col-12">
-                  <div class="forecast__icon">
-                    <div class="icon">
-                      <div class="cloud"></div>
-                      <div class="snow">
-                        <div class="flake"></div>
-                        <div class="flake"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <div class="forecast__temperature">
-                    <h3>-12°C</h3>
-                  </div>
-                  <div class="forecast__description">
-                    <p>Opady śniegu</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-6 col-sm-4 col-lg-2 forecast forecast--daily">
-            <div class="forecast__inner">
-              <div class="row align-items-center">
-                <div class="col-12">
-                  <h4>14 gru</h4>
-                </div>
-                <div class="col-12">
-                  <div class="forecast__icon">
-                    <div class="icon">
-                      <div class="cloud"></div>
-                      <div class="snow">
-                        <div class="flake"></div>
-                        <div class="flake"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <div class="forecast__temperature">
-                    <h3>-12°C</h3>
-                  </div>
-                  <div class="forecast__description">
-                    <p>Opady śniegu</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <app-weather-tile [tileType]="weatherTileType.TOMORROW" [weatherTime]="translations.TIME_TOMORROW" [weatherIconType]="weatherTomorrowIcon" [weather]="weatherTomorrow"></app-weather-tile>
           </div>
         </div>
       </div>

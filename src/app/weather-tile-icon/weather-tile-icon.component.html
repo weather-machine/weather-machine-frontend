@@ -6,6 +6,10 @@
   <div class="cloud"></div>
   <div class="cloud"></div>
 </div>
+<div class="icon" *ngIf="iconType === weatherIconType.CLOUD_SUN">
+  <div class="cloud"></div>
+  <div class="sun"></div>
+</div>
 <div class="icon" *ngIf="iconType === weatherIconType.CLOUD_MOON">
   <div class="cloud"></div>
   <div class="moon">

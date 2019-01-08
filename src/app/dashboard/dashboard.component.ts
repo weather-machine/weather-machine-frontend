@@ -3,8 +3,8 @@ import {Translations} from '../enums/translations.enum';
 import {NgForm} from '@angular/forms';
 import {GeocoderService} from '../services/geocoder.service';
 import {RestService} from '../services/rest.service';
-import {WeatherIconType} from '../enums/weather-icon-type.enum';
 import {WeatherTileType} from '../enums/weather-tile-type.enum';
+import {WeatherDecisionService} from '../services/weather-decision.service';
 // import {} from '@types/googlemaps';
 
 @Component({
@@ -15,7 +15,6 @@ import {WeatherTileType} from '../enums/weather-tile-type.enum';
 export class DashboardComponent implements OnInit {
 
   translations = Translations;
-  weatherIconType = WeatherIconType;
   weatherTileType = WeatherTileType;
   placeName: string;
   countryName: string;
@@ -25,7 +24,16 @@ export class DashboardComponent implements OnInit {
   map: google.maps.Map;
   marker: google.maps.Marker;
 
-  constructor(private geocoder: GeocoderService, private restService: RestService) {
+  weatherCurrent = null;
+  weatherCurrentIcon = null;
+  weatherNight = null;
+  weatherNightIcon = null;
+  weatherTomorrow = null;
+  weatherTomorrowIcon = null;
+
+  loading = false;
+
+  constructor(private geocoder: GeocoderService, private restService: RestService, private decisionService: WeatherDecisionService) {
     /* Hardcoded Wroclaw position */
     this.setPlaceCoordinates(51.1, 17.03333);
   }
@@ -60,6 +68,7 @@ export class DashboardComponent implements OnInit {
 
   changeLocalization(geocodedAddress: any, refreshMarker: boolean = false,
                      centerMap: boolean = true, placeName: string = null) {
+    this.resetWeathers();
     if (placeName) {
       this.placeName = placeName;
     }
@@ -71,6 +80,7 @@ export class DashboardComponent implements OnInit {
     if (refreshMarker || !this.marker) {
       this.initializeMarker(geocodedAddress.lat, geocodedAddress.lng);
     }
+    this.getForecastForPlace();
   }
 
   centerMap(placeLat: number = this.placeLat, placeLng: number = this.placeLng) {
@@ -154,26 +164,58 @@ export class DashboardComponent implements OnInit {
       Country: this.getFormattedString(this.countryName, 10)
     };
 
+    this.loading = true;
     this.restService.getForecastForPlace(place).subscribe(
       data => {
         // @ts-ignore
-        if (data.hasOwnProperty('status') && data.status === 'success'
+        if (data.hasOwnProperty('status') && data.status === 'place added'
           && numberOfCurrentTry < maxRetryNumber) {
           // waiting for forecasts
           setTimeout( () => {
             this.getForecastForPlace(++numberOfCurrentTry);
           }, this.restService.pullingIntervalDelay);
         // @ts-ignore
-        } else if (data.hasOwnProperty('status') && data.status === 'success'
+        } else if (data.hasOwnProperty('status') && data.status === 'place added'
           && numberOfCurrentTry === maxRetryNumber) {
           // to many tries
           console.log('to many tries');
         } else {
           // forecasts are correct
-          console.log(data);
+          console.log('forecast are correct');
+          this.bindWeather(data);
         }
       },
-      error => console.log(error)
+      error => {
+        console.log(error);
+        this.loading = false;
+      }
     );
+  }
+
+  bindWeather(data: any) {
+    this.weatherCurrent = data[0];
+    this.weatherCurrentIcon = this.decisionService.classifyWeatherIconType(
+      data[0].Date, data[0].Cloud_cover, data[0].Humidity_percent, data[0].Temperature, data[0].Wind_speed
+    );
+    this.weatherNight = data[1];
+    this.weatherNightIcon = this.decisionService.classifyWeatherIconType(
+      data[1].Date, data[1].Cloud_cover, data[1].Humidity_percent, data[1].Temperature, data[1].Wind_speed
+    );
+    this.weatherTomorrow = data[2];
+    this.weatherTomorrowIcon = this.decisionService.classifyWeatherIconType(
+      data[2].Date, data[2].Cloud_cover, data[2].Humidity_percent, data[2].Temperature, data[2].Wind_speed
+    );
+    this.loading = false;
+  }
+
+  resetWeathers() {
+    this.weatherCurrent = null;
+    this.weatherCurrentIcon = null;
+    this.weatherNight = null;
+    this.weatherNightIcon = null;
+    this.weatherTomorrow = null;
+    this.weatherTomorrowIcon = null;
+
+    this.loading = false;
   }
 }
