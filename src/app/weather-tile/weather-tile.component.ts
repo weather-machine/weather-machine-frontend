@@ -16,6 +16,7 @@ export class WeatherTileComponent implements OnInit {
   @Input() tileType: WeatherTileType;
   @Input() weatherTime: string;
   @Input() weatherIconType: WeatherIconType;
+  @Input() weather: any;
 
   constructor() { }
 

@@ -12,6 +12,8 @@ import {RestService} from './services/rest.service';
 import { WeatherTileComponent } from './weather-tile/weather-tile.component';
 import { WeatherTileIconComponent } from './weather-tile-icon/weather-tile-icon.component';
 
+import { NgxLoadingModule } from 'ngx-loading';
+
 const appRoutes: Routes = [
   { path: '', component: DashboardComponent },
   { path: 'contact', component: ContactComponent },
@@ -34,7 +36,13 @@ const appRoutes: Routes = [
     RouterModule.forRoot(
       appRoutes
     ),
-    HttpClientModule
+    HttpClientModule,
+    NgxLoadingModule.forRoot({
+      primaryColour: '#3F51B5',
+      secondaryColour: '#2196F3',
+      tertiaryColour: '#03A9F4',
+      backdropBorderRadius: '8px'
+    }),
   ],
   providers: [RestService],
   bootstrap: [AppComponent]

@@ -11,10 +11,10 @@
   <div class="row">
     <div class="col-12">
       <div class="forecast__temperature">
-        <h3>-12{{translations.WEATHER_TEMPERATURE_UNIT}}</h3>
+        <h3>{{weather.Temperature}}{{translations.WEATHER_TEMPERATURE_UNIT}}</h3>
       </div>
       <div class="forecast__description">
-        <p>Deszcz ze śniegiem</p>
+        <p>{{weather.Main}}</p>
       </div>
     </div>
   </div>
@@ -23,7 +23,7 @@
       <svg viewBox="0 0 36 36" class="circular-chart circular-chart--direction">
         <path class="circle circle--grey" stroke-dasharray="7.5,5" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
         <path class="circle circle--direction" stroke-dasharray="7.5,92,5" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-        <text class="text" x="50%" y="45%" text-anchor="middle" alignment-baseline="central">7</text>
+        <text class="text" x="50%" y="45%" text-anchor="middle" alignment-baseline="central">{{weather.Wind_speed}}</text>
         <text class="text" x="50%" y="65%" text-anchor="middle" alignment-baseline="central">{{translations.WEATHER_WIND_SPEED_UNIT}}</text>
       </svg>
       <h6>{{translations.WEATHER_WIND_DIRECTION}}</h6>
@@ -32,7 +32,7 @@
       <svg viewBox="0 0 36 36" class="circular-chart">
         <path class="circle circle--grey" stroke-dasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
         <path class="circle" stroke-dasharray="90, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-        <text class="text" x="50%" y="50%" text-anchor="middle" alignment-baseline="central">90%</text>
+        <text class="text" x="50%" y="50%" text-anchor="middle" alignment-baseline="central">{{weather.Cloud_cover}}%</text>
       </svg>
       <h6>{{translations.WEATHER_CLOUD_COVER}}</h6>
     </div>
@@ -40,7 +40,7 @@
       <svg viewBox="0 0 36 36" class="circular-chart circular-chart--pressure">
         <path class="circle circle--grey" stroke-dasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
         <path class="circle circle--pressure" stroke-dasharray="75, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-        <text class="text" x="50%" y="45%" text-anchor="middle" alignment-baseline="central">1020</text>
+        <text class="text" x="50%" y="45%" text-anchor="middle" alignment-baseline="central">{{weather.Pressure_mb}}</text>
         <text class="text" x="50%" y="65%" text-anchor="middle" alignment-baseline="central">{{translations.WEATHER_PRESSURE_UNIT}}</text>
       </svg>
       <h6>{{translations.WEATHER_PRESSURE}}</h6>
@@ -49,7 +49,7 @@
       <svg viewBox="0 0 36 36" class="circular-chart">
         <path class="circle circle--grey" stroke-dasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
         <path class="circle" stroke-dasharray="81, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-        <text class="text" x="50%" y="50%" text-anchor="middle" alignment-baseline="central">81%</text>
+        <text class="text" x="50%" y="50%" text-anchor="middle" alignment-baseline="central">{{weather.Humidity_percent}}%</text>
       </svg>
       <h6>{{translations.WEATHER_HUMIDITY}}</h6>
     </div>
@@ -61,19 +61,19 @@
           <tbody class="small">
           <tr>
             <td>{{translations.WEATHER_WIND_SHORT}}</td>
-            <td>7{{translations.WEATHER_WIND_SPEED_UNIT}} <i class="material-icons">arrow_right_alt</i></td>
+            <td>{{weather.Wind_speed}}{{translations.WEATHER_WIND_SPEED_UNIT}} <i class="material-icons">arrow_right_alt</i></td>
           </tr>
           <tr>
             <td>{{translations.WEATHER_CLOUD_SHORT}}</td>
-            <td>90% {{translations.WEATHER_CLOUD_SKY}}</td>
+            <td>{{weather.Cloud_cover}}% {{translations.WEATHER_CLOUD_SKY}}</td>
           </tr>
           <tr>
             <td>{{translations.WEATHER_PRESSURE_SHORT}}</td>
-            <td>1020 {{translations.WEATHER_PRESSURE_UNIT}}</td>
+            <td>{{weather.Pressure_mb}} {{translations.WEATHER_PRESSURE_UNIT}}</td>
           </tr>
           <tr>
             <td>{{translations.WEATHER_HUMIDITY_SHORT}}</td>
-            <td>81%</td>
+            <td>{{weather.Humidity_percent}}%</td>
           </tr>
           </tbody>
         </table>
@@ -95,10 +95,10 @@
   <div class="row">
     <div class="col-12">
       <div class="forecast__temperature">
-        <h3>-12{{translations.WEATHER_TEMPERATURE_UNIT}}</h3>
+        <h3>{{weather.Temperature}}{{translations.WEATHER_TEMPERATURE_UNIT}}</h3>
       </div>
       <div class="forecast__description">
-        <p>Pochmurno</p>
+        <p>{{weather.Main}}</p>
       </div>
     </div>
   </div>
@@ -107,7 +107,7 @@
       <svg viewBox="0 0 36 36" class="circular-chart circular-chart--direction">
         <path class="circle circle--grey" stroke-dasharray="7.5,5" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
         <path class="circle circle--direction" stroke-dasharray="7.5,92,5" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-        <text class="text" x="50%" y="45%" text-anchor="middle" alignment-baseline="central">7</text>
+        <text class="text" x="50%" y="45%" text-anchor="middle" alignment-baseline="central">{{weather.Wind_speed}}</text>
         <text class="text" x="50%" y="65%" text-anchor="middle" alignment-baseline="central">{{translations.WEATHER_WIND_SPEED_UNIT}}</text>
       </svg>
       <h6>{{translations.WEATHER_WIND_DIRECTION}}</h6>
@@ -116,7 +116,7 @@
       <svg viewBox="0 0 36 36" class="circular-chart">
         <path class="circle circle--grey" stroke-dasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
         <path class="circle" stroke-dasharray="90, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-        <text class="text" x="50%" y="50%" text-anchor="middle" alignment-baseline="central">90%</text>
+        <text class="text" x="50%" y="50%" text-anchor="middle" alignment-baseline="central">{{weather.Cloud_cover}}%</text>
       </svg>
       <h6>{{translations.WEATHER_CLOUD_COVER}}</h6>
     </div>
@@ -124,7 +124,7 @@
       <svg viewBox="0 0 36 36" class="circular-chart circular-chart--pressure">
         <path class="circle circle--grey" stroke-dasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
         <path class="circle circle--pressure" stroke-dasharray="75, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-        <text class="text" x="50%" y="45%" text-anchor="middle" alignment-baseline="central">1020</text>
+        <text class="text" x="50%" y="45%" text-anchor="middle" alignment-baseline="central">{{weather.Pressure_mb}}</text>
         <text class="text" x="50%" y="65%" text-anchor="middle" alignment-baseline="central">{{translations.WEATHER_PRESSURE_UNIT}}</text>
       </svg>
       <h6>{{translations.WEATHER_PRESSURE}}</h6>
@@ -133,7 +133,7 @@
       <svg viewBox="0 0 36 36" class="circular-chart">
         <path class="circle circle--grey" stroke-dasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
         <path class="circle" stroke-dasharray="81, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-        <text class="text" x="50%" y="50%" text-anchor="middle" alignment-baseline="central">81%</text>
+        <text class="text" x="50%" y="50%" text-anchor="middle" alignment-baseline="central">{{weather.Humidity_percent}}%</text>
       </svg>
       <h6>{{translations.WEATHER_HUMIDITY}}</h6>
     </div>
@@ -145,19 +145,19 @@
           <tbody class="small">
           <tr>
             <td>{{translations.WEATHER_WIND_SHORT}}</td>
-            <td>7{{translations.WEATHER_WIND_SPEED_UNIT}} <i class="material-icons">arrow_right_alt</i></td>
+            <td>{{weather.Wind_speed}}{{translations.WEATHER_WIND_SPEED_UNIT}} <i class="material-icons">arrow_right_alt</i></td>
           </tr>
           <tr>
             <td>{{translations.WEATHER_CLOUD_SHORT}}</td>
-            <td>90% {{translations.WEATHER_CLOUD_SKY}}</td>
+            <td>{{weather.Cloud_cover}}% {{translations.WEATHER_CLOUD_SKY}}</td>
           </tr>
           <tr>
             <td>{{translations.WEATHER_PRESSURE_SHORT}}</td>
-            <td>1020 {{translations.WEATHER_PRESSURE_UNIT}}</td>
+            <td>{{weather.Pressure_mb}} {{translations.WEATHER_PRESSURE_UNIT}}</td>
           </tr>
           <tr>
             <td>{{translations.WEATHER_HUMIDITY_SHORT}}</td>
-            <td>81%</td>
+            <td>{{weather.Humidity_percent}}%</td>
           </tr>
           </tbody>
         </table>
@@ -181,10 +181,10 @@
   <div class="row">
     <div class="col-12">
       <div class="forecast__temperature">
-        <h3>-12{{translations.WEATHER_TEMPERATURE_UNIT}}</h3>
+        <h3>{{weather.Temperature}}{{translations.WEATHER_TEMPERATURE_UNIT}}</h3>
       </div>
       <div class="forecast__description">
-        <p>Opady śniegu</p>
+        <p>{{weather.Main}}</p>
       </div>
     </div>
   </div>
@@ -193,7 +193,7 @@
       <svg viewBox="0 0 36 36" class="circular-chart circular-chart--direction">
         <path class="circle circle--grey" stroke-dasharray="7.5,5" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
         <path class="circle circle--direction" stroke-dasharray="7.5,92,5" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-        <text class="text" x="50%" y="45%" text-anchor="middle" alignment-baseline="central">7</text>
+        <text class="text" x="50%" y="45%" text-anchor="middle" alignment-baseline="central">{{weather.Wind_speed}}</text>
         <text class="text" x="50%" y="65%" text-anchor="middle" alignment-baseline="central">{{translations.WEATHER_WIND_SPEED_UNIT}}</text>
       </svg>
       <h6>{{translations.WEATHER_WIND_DIRECTION}}</h6>
@@ -202,7 +202,7 @@
       <svg viewBox="0 0 36 36" class="circular-chart">
         <path class="circle circle--grey" stroke-dasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
         <path class="circle" stroke-dasharray="90, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-        <text class="text" x="50%" y="50%" text-anchor="middle" alignment-baseline="central">90%</text>
+        <text class="text" x="50%" y="50%" text-anchor="middle" alignment-baseline="central">{{weather.Cloud_cover}}%</text>
       </svg>
       <h6>{{translations.WEATHER_CLOUD_COVER}}</h6>
     </div>
@@ -210,7 +210,7 @@
       <svg viewBox="0 0 36 36" class="circular-chart circular-chart--pressure">
         <path class="circle circle--grey" stroke-dasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
         <path class="circle circle--pressure" stroke-dasharray="75, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-        <text class="text" x="50%" y="45%" text-anchor="middle" alignment-baseline="central">1020</text>
+        <text class="text" x="50%" y="45%" text-anchor="middle" alignment-baseline="central">{{weather.Pressure_mb}}</text>
         <text class="text" x="50%" y="65%" text-anchor="middle" alignment-baseline="central">{{translations.WEATHER_PRESSURE_UNIT}}</text>
       </svg>
       <h6>{{translations.WEATHER_PRESSURE}}</h6>
@@ -219,7 +219,7 @@
       <svg viewBox="0 0 36 36" class="circular-chart">
         <path class="circle circle--grey" stroke-dasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
         <path class="circle" stroke-dasharray="81, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-        <text class="text" x="50%" y="50%" text-anchor="middle" alignment-baseline="central">81%</text>
+        <text class="text" x="50%" y="50%" text-anchor="middle" alignment-baseline="central">{{weather.Humidity_percent}}%</text>
       </svg>
       <h6>{{translations.WEATHER_HUMIDITY}}</h6>
     </div>
@@ -231,19 +231,19 @@
           <tbody class="small">
           <tr>
             <td>{{translations.WEATHER_WIND_SHORT}}</td>
-            <td>7{{translations.WEATHER_WIND_SPEED_UNIT}} <i class="material-icons">arrow_right_alt</i></td>
+            <td>{{weather.Wind_speed}}{{translations.WEATHER_WIND_SPEED_UNIT}} <i class="material-icons">arrow_right_alt</i></td>
           </tr>
           <tr>
             <td>{{translations.WEATHER_CLOUD_SHORT}}</td>
-            <td>90% {{translations.WEATHER_CLOUD_SKY}}</td>
+            <td>{{weather.Cloud_cover}}% {{translations.WEATHER_CLOUD_SKY}}</td>
           </tr>
           <tr>
             <td>{{translations.WEATHER_PRESSURE_SHORT}}</td>
-            <td>1020 {{translations.WEATHER_PRESSURE_UNIT}}</td>
+            <td>{{weather.Pressure_mb}} {{translations.WEATHER_PRESSURE_UNIT}}</td>
           </tr>
           <tr>
             <td>{{translations.WEATHER_HUMIDITY_SHORT}}</td>
-            <td>81%</td>
+            <td>{{weather.Humidity_percent}}%</td>
           </tr>
           </tbody>
         </table>
