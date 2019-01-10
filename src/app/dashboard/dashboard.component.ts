@@ -31,6 +31,7 @@ export class DashboardComponent implements OnInit {
   weatherTomorrow = null;
   weatherTomorrowIcon = null;
   weatherHourly = null;
+  weatherDaily = null;
 
   loading = false;
 
@@ -196,25 +197,40 @@ export class DashboardComponent implements OnInit {
   bindWeather(data: any) {
     for (let i = 0; i < data.length; i++) {
       data[i].LocalDate = this.convertUTCDateToLocalDate(new Date(data[i].Date));
+      if (data[i].Main === 'unknown') {
+        data[i].Main = this.decisionService.getMainDesc(this.decisionService.classifyWeatherIconType(
+          data[i].LocalDate, data[i].Cloud_cover, data[i].Humidity_percent, data[i].Temperature, data[i].Wind_speed
+        ));
+      }
     }
     this.weatherCurrent = data[0];
     this.weatherCurrentIcon = this.decisionService.classifyWeatherIconType(
-      data[0].Date, data[0].Cloud_cover, data[0].Humidity_percent, data[0].Temperature, data[0].Wind_speed
+      data[0].LocalDate, data[0].Cloud_cover, data[0].Humidity_percent, data[0].Temperature, data[0].Wind_speed
     );
     this.weatherNight = data[25];
     this.weatherNightIcon = this.decisionService.classifyWeatherIconType(
-      data[25].Date, data[25].Cloud_cover, data[25].Humidity_percent, data[25].Temperature, data[25].Wind_speed
+      data[25].LocalDate, data[25].Cloud_cover, data[25].Humidity_percent, data[25].Temperature, data[25].Wind_speed, true
+    );
+    data[26].LocalDate.setHours(12);
+    data[26].weatherIcon = this.decisionService.classifyWeatherIconType(
+      data[26].LocalDate, data[26].Cloud_cover, data[26].Humidity_percent, data[26].Temperature, data[26].Wind_speed
     );
     this.weatherTomorrow = data[26];
-    this.weatherTomorrowIcon = this.decisionService.classifyWeatherIconType(
-      data[26].Date, data[26].Cloud_cover, data[26].Humidity_percent, data[26].Temperature, data[26].Wind_speed
-    );
+    this.weatherTomorrowIcon = data[26].weatherIcon;
     this.weatherHourly = [];
     for (let i = 1; i < 25; i++) {
       data[i].weatherIcon = this.decisionService.classifyWeatherIconType(
-        data[i].Date, data[i].Cloud_cover, data[i].Humidity_percent, data[i].Temperature, data[i].Wind_speed
+        data[i].LocalDate, data[i].Cloud_cover, data[i].Humidity_percent, data[i].Temperature, data[i].Wind_speed
       );
       this.weatherHourly.push(data[i]);
+    }
+    this.weatherDaily = [];
+    for (let i = 27; i < data.length; i++) {
+      data[i].LocalDate.setHours(12);
+      data[i].weatherIcon = this.decisionService.classifyWeatherIconType(
+        data[i].LocalDate, data[i].Cloud_cover, data[i].Humidity_percent, data[i].Temperature, data[i].Wind_speed
+      );
+      this.weatherDaily.push(data[i]);
     }
 
     this.loading = false;
@@ -228,6 +244,7 @@ export class DashboardComponent implements OnInit {
     this.weatherTomorrow = null;
     this.weatherTomorrowIcon = null;
     this.weatherHourly = null;
+    this.weatherDaily = null;
 
     this.loading = false;
   }

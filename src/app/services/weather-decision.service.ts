@@ -15,10 +15,46 @@ export class WeatherDecisionService {
   private humidityThreshold = 90;
   private windSpeedThreshold = 15;
 
+  private weatherMainTypeMap = {
+    1: 'Pogodnie',
+    2: 'Jasno',
+    3: 'Przewaznie pogodnie',
+    4: 'Przewaznie jasno',
+    5: 'Zamglone slonce',
+    6: 'Mgla',
+    7: 'Przemijajace chmury',
+    8: 'Wiecej slonca niz chmur',
+    9: 'Rozproszone chmury',
+    10: 'Polowiczne zachmurzenie',
+    11: 'Slonce i chmury',
+    12: 'Wysokie chmury',
+    13: 'Wiecej chmur niz slonca',
+    14: 'Polowicznie slonecznie',
+    15: 'Rozbite chmury',
+    16: 'Przewaznie pochmurno',
+    17: 'Chmury',
+    18: 'Pochmurno',
+    19: 'Niskie chmury',
+    20: 'Lekka mgla',
+    21: 'Mgla',
+    22: 'Gesta mgla',
+    23: 'Mgla lodowa',
+    24: 'Burza piaskowa',
+    25: 'Burza pylu',
+    26: 'Zwiekaszajace sie zachmurzenie',
+    27: 'Zmniejszajace sie zachmurzenie',
+    28: 'Rozpogodzenie',
+    29: 'Przeswity slonca',
+    30: 'Wczesna mgla, po ktorej nastepuje rozpogodzenie',
+    31: 'Popoludniowe zachmurzenie',
+    32: 'Poranne zachmurzenie',
+    33: 'Upalnie',
+    34: 'Niski poziom zamglenia'
+  };
+
   constructor() { }
 
-  isNight(timestampUTC: number): boolean {
-    const date = new Date(timestampUTC);
+  isNight(date: Date): boolean {
     return date.getHours() > 20 || date.getHours() < 5;
   }
 
@@ -58,10 +94,11 @@ export class WeatherDecisionService {
     return cloudCover < this.cloudCoverThreshold;
   }
 
-  classifyWeatherIconType(timestampUTC: number, cloudCover: number, humidity: number, temp: number, windSpeed: number): WeatherIconType {
+  classifyWeatherIconType(date: Date, cloudCover: number, humidity: number, temp: number,
+                          windSpeed: number, isNight: boolean = false): WeatherIconType {
     let weatherIconType = WeatherIconType.CLOUD_SUN;
 
-    if (this.isNight(timestampUTC)) {
+    if (isNight || this.isNight(date)) {
       if (this.isCloudMoon(cloudCover)) {
         weatherIconType = WeatherIconType.CLOUD_MOON;
       }
@@ -85,5 +122,30 @@ export class WeatherDecisionService {
     }
 
     return weatherIconType;
+  }
+
+  getMainDesc(weatherIconType: WeatherIconType): string {
+    let mainDesc = this.weatherMainTypeMap[14];
+    if (weatherIconType === WeatherIconType.CLOUD_SUN) {
+      mainDesc = this.weatherMainTypeMap[11];
+    } else if (weatherIconType === WeatherIconType.CLOUD_MOON) {
+      mainDesc = this.weatherMainTypeMap[18];
+    } else if (weatherIconType === WeatherIconType.MOON) {
+      mainDesc = this.weatherMainTypeMap[18];
+    } else if (weatherIconType === WeatherIconType.CLOUD_LIGHTNING) {
+      mainDesc = this.weatherMainTypeMap[18];
+    } else if (weatherIconType === WeatherIconType.CLOUD_SUN_RAIN) {
+      mainDesc = this.weatherMainTypeMap[13];
+    } else if (weatherIconType === WeatherIconType.CLOUD_SNOW) {
+      mainDesc = this.weatherMainTypeMap[18];
+    } else if (weatherIconType === WeatherIconType.CLOUD_RAIN) {
+      mainDesc = this.weatherMainTypeMap[18];
+    } else if (weatherIconType === WeatherIconType.CLOUD) {
+      mainDesc = this.weatherMainTypeMap[17];
+    } else if (weatherIconType === WeatherIconType.SUN) {
+      mainDesc = this.weatherMainTypeMap[1];
+    }
+
+    return mainDesc;
   }
 }

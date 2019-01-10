@@ -16,7 +16,7 @@ export enum Translations {
 
   ACTION_PICK_ON_MAP = 'Lub wybierz punkt na mapie',
 
-  TIME_TODAY = 'Dzisiaj',
+  TIME_TODAY = 'Teraz',
   TIME_NIGHT = 'W nocy',
   TIME_TOMORROW = 'Jutro',
   TIME_DAILY = 'Prognoza dzienna',

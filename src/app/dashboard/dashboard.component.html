@@ -71,4 +71,22 @@
     </div>
   </div>
 </section>
+<section id="wm-daily" *ngIf="weatherDaily">
+  <div class="container">
+    <div class="row">
+      <div class="col text-center">
+        <h2 class="display-4 mb-5">{{translations.TIME_DAILY}}</h2>
+      </div>
+    </div>
+    <div class="row shadow">
+      <div class="col-md-12">
+        <div class="row text-center">
+          <div class="col-6 col-sm-4 col-lg-2 mb-2 forecast forecast--daily" *ngFor="let wd of weatherDaily">
+            <app-weather-tile [tileType]="weatherTileType.DAILY" [weatherTime]="wd.LocalDate" [weatherIconType]="wd.weatherIcon" [weather]="wd"></app-weather-tile>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 <ngx-loading [show]="loading"></ngx-loading>
