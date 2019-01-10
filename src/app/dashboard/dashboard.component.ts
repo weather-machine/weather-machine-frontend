@@ -202,6 +202,7 @@ export class DashboardComponent implements OnInit {
           data[i].LocalDate, data[i].Cloud_cover, data[i].Humidity_percent, data[i].Temperature, data[i].Wind_speed
         ));
       }
+      data[i].Direction_degree = this.decisionService.getWindDirectionDegree(data[i].Direction);
     }
     this.weatherCurrent = data[0];
     this.weatherCurrentIcon = this.decisionService.classifyWeatherIconType(

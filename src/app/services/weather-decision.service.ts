@@ -52,6 +52,25 @@ export class WeatherDecisionService {
     34: 'Niski poziom zamglenia'
   };
 
+  private windDirectionToDegreeMap = {
+    N: 0,
+    NNE: 0,
+    NE: 45,
+    ENE: 45,
+    E: 90,
+    ESE: 90,
+    SE: 135,
+    SSE: 135,
+    S: 180,
+    SSW: 180,
+    SW: 225,
+    WSW: 225,
+    W: 270,
+    WNW: 270,
+    NW: 315,
+    NNW: 315
+  };
+
   constructor() { }
 
   isNight(date: Date): boolean {
@@ -147,5 +166,9 @@ export class WeatherDecisionService {
     }
 
     return mainDesc;
+  }
+
+  getWindDirectionDegree(windDirCode: string): number {
+    return this.windDirectionToDegreeMap[windDirCode];
   }
 }
