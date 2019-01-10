@@ -1,5 +1,6 @@
 export enum WeatherTileType {
   TODAY,
   NIGHT,
-  TOMORROW
+  TOMORROW,
+  HOURLY
 }

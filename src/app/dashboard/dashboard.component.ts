@@ -30,6 +30,7 @@ export class DashboardComponent implements OnInit {
   weatherNightIcon = null;
   weatherTomorrow = null;
   weatherTomorrowIcon = null;
+  weatherHourly = null;
 
   loading = false;
 
@@ -193,18 +194,29 @@ export class DashboardComponent implements OnInit {
   }
 
   bindWeather(data: any) {
+    for (let i = 0; i < data.length; i++) {
+      data[i].LocalDate = this.convertUTCDateToLocalDate(new Date(data[i].Date));
+    }
     this.weatherCurrent = data[0];
     this.weatherCurrentIcon = this.decisionService.classifyWeatherIconType(
       data[0].Date, data[0].Cloud_cover, data[0].Humidity_percent, data[0].Temperature, data[0].Wind_speed
     );
-    this.weatherNight = data[1];
+    this.weatherNight = data[25];
     this.weatherNightIcon = this.decisionService.classifyWeatherIconType(
-      data[1].Date, data[1].Cloud_cover, data[1].Humidity_percent, data[1].Temperature, data[1].Wind_speed
+      data[25].Date, data[25].Cloud_cover, data[25].Humidity_percent, data[25].Temperature, data[25].Wind_speed
     );
-    this.weatherTomorrow = data[2];
+    this.weatherTomorrow = data[26];
     this.weatherTomorrowIcon = this.decisionService.classifyWeatherIconType(
-      data[2].Date, data[2].Cloud_cover, data[2].Humidity_percent, data[2].Temperature, data[2].Wind_speed
+      data[26].Date, data[26].Cloud_cover, data[26].Humidity_percent, data[26].Temperature, data[26].Wind_speed
     );
+    this.weatherHourly = [];
+    for (let i = 1; i < 25; i++) {
+      data[i].weatherIcon = this.decisionService.classifyWeatherIconType(
+        data[i].Date, data[i].Cloud_cover, data[i].Humidity_percent, data[i].Temperature, data[i].Wind_speed
+      );
+      this.weatherHourly.push(data[i]);
+    }
+
     this.loading = false;
   }
 
@@ -215,7 +227,18 @@ export class DashboardComponent implements OnInit {
     this.weatherNightIcon = null;
     this.weatherTomorrow = null;
     this.weatherTomorrowIcon = null;
+    this.weatherHourly = null;
 
     this.loading = false;
+  }
+
+  convertUTCDateToLocalDate(date): Date {
+    const newDate = new Date(date.getTime() + date.getTimezoneOffset() * 60 * 1000);
+    const offset = date.getTimezoneOffset() / 60;
+    const hours = date.getHours();
+
+    newDate.setHours(hours - offset);
+
+    return newDate;
   }
 }

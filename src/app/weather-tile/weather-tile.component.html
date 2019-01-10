@@ -252,3 +252,27 @@
   </div>
 </div>
 <!-- tomorrow -->
+<!-- hourly-->
+<div class="forecast__inner" *ngIf="tileType === weatherTileType.HOURLY">
+  <div class="row align-items-center">
+    <div class="col-12">
+      <h4>{{weatherTime | date:'HH:mm'}}</h4>
+    </div>
+    <div class="col-12">
+      <div class="forecast__icon">
+        <div class="icon">
+          <app-weather-tile-icon [iconType]="weatherIconType"></app-weather-tile-icon>
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="forecast__temperature">
+        <h3>{{weather.Temperature}}°C</h3>
+      </div>
+      <div class="forecast__description">
+        <p>{{weather.Main}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- hourly-->

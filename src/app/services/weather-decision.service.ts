@@ -19,7 +19,7 @@ export class WeatherDecisionService {
 
   isNight(timestampUTC: number): boolean {
     const date = new Date(timestampUTC);
-    return date.getHours() > 20 || date.getHours() < 4;
+    return date.getHours() > 20 || date.getHours() < 5;
   }
 
   isCloudMoon(cloudCover: number): boolean {
