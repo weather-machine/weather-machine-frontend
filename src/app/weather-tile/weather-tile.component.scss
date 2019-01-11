@@ -12,7 +12,7 @@
     }
 
     &--hourly {
-        @media (max-width: 575.98px) { 
+        @media (max-width: 575.98px) {  
             &:nth-of-type(4n + 2), &:nth-of-type(4n + 3) {
                 background: #eee;
             }

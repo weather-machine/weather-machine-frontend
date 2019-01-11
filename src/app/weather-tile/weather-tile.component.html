@@ -22,7 +22,7 @@
     <div class="offset-2 col-3">
         <svg viewBox="0 0 36 36" class="circular-chart circular-chart--direction">
             <path class="circle circle--grey" stroke-dasharray="7.5,5" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" transform="rotate(-12.5)" />
-            <path class="circle circle--direction" stroke-dasharray="7.5,92,5" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" attr.transform="rotate({{-12.5 + weather.Direction_degree}})" />
+            <path *ngIf="weather.Direction_degree" class="circle circle--direction" stroke-dasharray="7.5,92,5" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" attr.transform="rotate({{-12.5 + weather.Direction_degree}})" />
             <text class="text" x="50%" y="45%" text-anchor="middle" alignment-baseline="central">{{weather.Wind_speed ? weather.Wind_speed : '?'}}</text>
             <text class="text" x="50%" y="65%" text-anchor="middle" alignment-baseline="central">{{translations.WEATHER_WIND_SPEED_UNIT}}</text>
             <text *ngIf="weather.Direction" class="text" x="50%" y="25%" text-anchor="middle" alignment-baseline="central">{{weather.Direction}}</text>
@@ -107,7 +107,7 @@
     <div class="col-6">
     <svg viewBox="0 0 36 36" class="circular-chart circular-chart--direction">
             <path class="circle circle--grey" stroke-dasharray="7.5,5" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" transform="rotate(-12.5)" />
-            <path class="circle circle--direction" stroke-dasharray="7.5,92,5" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" attr.transform="rotate({{-12.5 + weather.Direction_degree}})" />
+            <path *ngIf="weather.Direction_degree" class="circle circle--direction" stroke-dasharray="7.5,92,5" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" attr.transform="rotate({{-12.5 + weather.Direction_degree}})" />
             <text class="text" x="50%" y="45%" text-anchor="middle" alignment-baseline="central">{{weather.Wind_speed ? weather.Wind_speed : '?'}}</text>
             <text class="text" x="50%" y="65%" text-anchor="middle" alignment-baseline="central">{{translations.WEATHER_WIND_SPEED_UNIT}}</text>
             <text *ngIf="weather.Direction" class="text" x="50%" y="25%" text-anchor="middle" alignment-baseline="central">{{weather.Direction}}</text>
@@ -125,7 +125,7 @@
     <div class="col-6">
       <svg viewBox="0 0 36 36" class="circular-chart circular-chart--pressure">
         <path class="circle circle--grey" stroke-dasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-        <path *ngIf="weather.Pressure_mb" class="circle circle--pressure" attr.stroke-dasharray="{{(1 + (weather.Pressure_mb - 1100)/(1100 - 850))*100}}, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"  attr.transform="rotate({{((1 + (weather.Pressure_mb - 1100)/(1100 - 850))*180)}})" />
+        <path *ngIf="weather.Pressure_mb" class="circle circle--pressure" attr.stroke-dasharray="{{(1 + (weather.Pressure_mb - 1100)/(1100 - 850))*100}}, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"  attr.transform="rotate({{(180 - (1 + (weather.Pressure_mb - 1100)/(1100 - 850))*180)}})" />
         <text class="text" x="50%" y="45%" text-anchor="middle" alignment-baseline="central">{{weather.Pressure_mb ? weather.Pressure_mb : '?'}}</text>
         <text class="text" x="50%" y="65%" text-anchor="middle" alignment-baseline="central">{{translations.WEATHER_PRESSURE_UNIT}}</text>
       </svg>
@@ -194,7 +194,7 @@
     <div class="col-6">
       <svg viewBox="0 0 36 36" class="circular-chart circular-chart--direction">
             <path class="circle circle--grey" stroke-dasharray="7.5,5" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" transform="rotate(-12.5)" />
-            <path class="circle circle--direction" stroke-dasharray="7.5,92,5" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" attr.transform="rotate({{-12.5 + weather.Direction_degree}})" />
+            <path *ngIf="weather.Direction_degree" class="circle circle--direction" stroke-dasharray="7.5,92,5" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" attr.transform="rotate({{-12.5 + weather.Direction_degree}})" />
             <text class="text" x="50%" y="45%" text-anchor="middle" alignment-baseline="central">{{weather.Wind_speed ? weather.Wind_speed : '?'}}</text>
             <text class="text" x="50%" y="65%" text-anchor="middle" alignment-baseline="central">{{translations.WEATHER_WIND_SPEED_UNIT}}</text>
             <text *ngIf="weather.Direction" class="text" x="50%" y="25%" text-anchor="middle" alignment-baseline="central">{{weather.Direction}}</text>
@@ -212,7 +212,7 @@
     <div class="col-6">
       <svg viewBox="0 0 36 36" class="circular-chart circular-chart--pressure">
         <path class="circle circle--grey" stroke-dasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-        <path *ngIf="weather.Pressure_mb" class="circle circle--pressure" attr.stroke-dasharray="{{(1 + (weather.Pressure_mb - 1100)/(1100 - 850))*100}}, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"  attr.transform="rotate({{((1 + (weather.Pressure_mb - 1100)/(1100 - 850))*180)}})" />
+        <path *ngIf="weather.Pressure_mb" class="circle circle--pressure" attr.stroke-dasharray="{{(1 + (weather.Pressure_mb - 1100)/(1100 - 850))*100}}, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"  attr.transform="rotate({{(180 - (1 + (weather.Pressure_mb - 1100)/(1100 - 850))*180)}})" />
         <text class="text" x="50%" y="45%" text-anchor="middle" alignment-baseline="central">{{weather.Pressure_mb ? weather.Pressure_mb : '?'}}</text>
         <text class="text" x="50%" y="65%" text-anchor="middle" alignment-baseline="central">{{translations.WEATHER_PRESSURE_UNIT}}</text>
       </svg>
@@ -256,8 +256,7 @@
 </div>
 <!-- tomorrow -->
 <!-- hourly-->
-<div class="forecast forecast--hourly" *ngIf="tileType === weatherTileType.HOURLY">
-    <div class="forecast__inner">
+<div class="forecast__inner" *ngIf="tileType === weatherTileType.HOURLY">
     <div class="row align-items-center">
         <div class="col-12">
         <h4>{{weatherTime | date:'HH:mm'}}</h4>
@@ -276,12 +275,10 @@
         </div>
         </div>
     </div>
-    </div>
 </div>
 <!-- hourly-->
 <!-- daily-->
-<div class="forecast forecast--daily" *ngIf="tileType === weatherTileType.DAILY">
-<div class="forecast__inner">
+<div class="forecast__inner" *ngIf="tileType === weatherTileType.DAILY">
   <div class="row align-items-center">
     <div class="col-12">
       <h4>{{weatherTime | date:'dd:MM'}}</h4>
@@ -300,6 +297,5 @@
       </div>
     </div>
   </div>
-</div>
 </div>
 <!-- daily-->
