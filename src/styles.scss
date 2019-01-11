@@ -8,15 +8,16 @@
 body {
   overflow-x: hidden;
 }
-section {
+section > .container {
   padding-top: 100px;
-  &:first-of-type {
-    padding-top: 100px;
-  }
-  &:last-of-type {
-    padding-bottom: 100px;
-  }
 }
+section:first-of-type {
+    padding-top: 100px;
+}
+section:last-of-type > .container {
+    padding-bottom: 100px;
+}
+
 
 .gmap {
   height: 100%;
@@ -56,20 +57,18 @@ section {
     }
   }
 
-  &--direction {
-    .circle {
-      transform: rotate(-12.5deg);
-      &--direction {
-        transform: rotate(calc(-12.5deg + 45deg)); // -12.5deg + direction
-      }
-    }
-    
-  }
+//   &--direction {
+//     .circle {
+//       transform: rotate(-12.5deg);
+//       &--direction {
+//         transform: rotate(calc(-12.5deg + 45deg)); // -12.5deg + direction
+//       }
+//     }
+//   }
 
   &--pressure {
     .circle--pressure {
       transform-origin: center;
-      transform: rotate(45deg); // 75/100 = 45/360/2
     }
   }
 }
