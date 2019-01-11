@@ -16,8 +16,9 @@
         ),
         url('../../assets/images/earth-bg.jpg');
     background-size: cover;
-    padding-top: 10rem;
-    padding-bottom: 10rem;
+    min-height: calc(100vh - 200px);
+    padding-top: 5rem;
+    padding-bottom: 5rem;
 }
 
 .forecast {
@@ -71,27 +72,6 @@
             }
         }
     }
-    &--hourly, &--daily {
-        .forecast{
-            &__icon {
-                font-size: 0.5rem;
-                margin-bottom: 1rem;
-            }
-        }
-        p {
-            margin-bottom: 0;
-        }
-        @media (max-width: 575.98px) { 
-            &:nth-of-type(4n + 2), &:nth-of-type(4n + 3) {
-            background: #eee;
-            }
-        }
-        @media (min-width: 576px) { 
-            &:nth-of-type(even) {
-                background: #eee;
-            }
-        }
-    }
     &--new-day {
         position: relative;
         &::before {
@@ -106,11 +86,6 @@
     }
 }
 
-#wm-map {
-    .gmap {
-        height: 500px;
-    }
-}
-
-#wm-weather {
+.gmap {
+    height: 300px;
 }

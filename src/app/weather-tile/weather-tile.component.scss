@@ -1,0 +1,44 @@
+.forecast {
+     &--hourly, &--daily {
+        .forecast{
+            &__icon {
+                font-size: 0.5rem;
+                margin-bottom: 1rem;
+            }
+        }
+        p {
+            margin-bottom: 0;
+        }
+    }
+
+    &--hourly {
+        @media (max-width: 575.98px) { 
+            &:nth-of-type(4n + 2), &:nth-of-type(4n + 3) {
+                background: #eee;
+            }
+        }
+        @media (min-width: 576px) and (max-width: 991.98px) { 
+            &:nth-of-type(even) {
+                background: #eee;
+            }
+        }
+        @media (min-width: 992px) { 
+            &:nth-of-type(12n + 2), &:nth-of-type(12n + 4), &:nth-of-type(12n + 6), &:nth-of-type(12n + 7), &:nth-of-type(12n + 9), &:nth-of-type(12n + 11) {
+                background: #eee;
+            }
+        }
+    }
+
+    &--daily {
+        @media (max-width: 991.98px) { 
+            &:nth-of-type(4n + 2), &:nth-of-type(4n + 3) {
+            background: #eee;
+            }
+        }
+        @media (min-width: 992px) { 
+            &:nth-of-type(even) {
+                background: #eee;
+            }
+        }
+    }
+}
